@@ -2,7 +2,6 @@ package avrotools;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.apache.avro.reflect.Nullable;
 import org.immutables.value.Value;
 
 @Value.Immutable
@@ -17,8 +16,7 @@ public interface User {
     double getAge();
 
     @Value.Default
-    @Nullable
-    default Double getNewField() {
+    default double getNewField() {
         return 42.0;
     }
 }

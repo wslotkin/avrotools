@@ -1,12 +1,10 @@
 package avrotools;
 
-import com.fasterxml.jackson.databind.ObjectReader;
 import com.fasterxml.jackson.dataformat.avro.AvroMapper;
 import com.fasterxml.jackson.dataformat.avro.AvroSchema;
 import org.apache.avro.Schema;
 import org.apache.avro.file.DataFileReader;
 import org.apache.avro.file.DataFileWriter;
-import org.apache.avro.io.DatumReader;
 import org.apache.avro.io.DatumWriter;
 import org.apache.avro.reflect.ReflectData;
 import org.apache.avro.reflect.ReflectDatumReader;
@@ -14,7 +12,7 @@ import org.apache.avro.reflect.ReflectDatumWriter;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.ByteBuffer;
+import java.util.Iterator;
 
 public class FullAvroSerializationMain {
 
@@ -43,14 +41,14 @@ public class FullAvroSerializationMain {
 
     private static void readAvroViaJackson() throws IOException {
         System.out.println("Deserializing avro via jackson");
-        DatumReader<ImmutableUser> userDatumReader = new ReflectDatumReader<>(ImmutableUser.class);
-        DataFileReader<ImmutableUser> dataFileReader = new DataFileReader<>(new File("users.avro"), userDatumReader);
+        File file = new File("users.avro");
 
-        AvroSchema persistedSchema = new AvroSchema(dataFileReader.getSchema());
-        ObjectReader reader = new AvroMapper().readerFor(User.class).with(persistedSchema);
-        while (dataFileReader.hasNext()) {
-            ByteBuffer byteBuffer = dataFileReader.nextBlock();
-            Object user = reader.readValue(byteBuffer.array());
+        DataFileReader<ImmutableUser> fileReader = new DataFileReader<>(file, new ReflectDatumReader<>(ImmutableUser.class));
+        AvroSchema persistedSchema = new AvroSchema(fileReader.getSchema());
+
+        Iterator<User> myIterator = new AvroMapper().readerFor(User.class).with(persistedSchema).readValues(file);
+        while (myIterator.hasNext()) {
+            User user = myIterator.next();
             System.out.println(user);
         }
         System.out.println("done\n");

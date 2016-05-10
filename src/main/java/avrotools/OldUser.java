@@ -7,10 +7,5 @@ import org.immutables.value.Value;
 @Value.Immutable
 @JsonSerialize(as = ImmutableOldUser.class)
 @JsonDeserialize(as = ImmutableOldUser.class)
-public interface OldUser {
-    String getUsername();
-
-    String getPassword();
-
-    double getAge();
+public interface OldUser extends BaseUser {
 }

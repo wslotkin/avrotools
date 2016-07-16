@@ -7,14 +7,17 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import static avrotools.objectmapper.JsonObjectMapperProvider.createObjectMapper;
+
 public class JsonDataWriter {
 
     public static void main(String[] args) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectMapper objectMapper = createObjectMapper();
 
         User user = ImmutableUser.builder().username("myUsername")
                 .password("myPassword")
-                .age(12.0)
+                .age(22.0)
+                .putProperties(1, "myFirstProperty")
                 .build();
 
         byte[] bytes = objectMapper.writeValueAsBytes(user);

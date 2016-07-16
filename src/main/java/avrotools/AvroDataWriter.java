@@ -12,20 +12,24 @@ import java.io.IOException;
 public class AvroDataWriter {
 
     public static void main(String[] args) throws IOException {
-        ImmutableUser user = avrotools.ImmutableUser.builder().username("myUsername")
+        ImmutableOldUser persistedUser = avrotools.ImmutableOldUser.builder().username("myUsername")
                 .password("myPassword")
                 .age(22.0)
+                .putProperties(1, "myFirstProperty")
                 .build();
-        writeToAvro(user);
+
+        writeToAvro(persistedUser);
     }
 
-    private static void writeToAvro(ImmutableUser user) throws IOException {
-        Schema schema = ReflectData.get().getSchema(ImmutableUser.class);
-        DatumWriter<ImmutableUser> userDatumWriter = new ReflectDatumWriter<>(ImmutableUser.class);
-        DataFileWriter<ImmutableUser> dataFileWriter = new DataFileWriter<>(userDatumWriter);
+    private static void writeToAvro(ImmutableOldUser user) throws IOException {
+        System.out.println("Serializing user to avro: " + user);
+        Schema schema = ReflectData.get().getSchema(ImmutableOldUser.class);
+        DatumWriter<ImmutableOldUser> userDatumWriter = new ReflectDatumWriter<>(ImmutableOldUser.class);
+        DataFileWriter<ImmutableOldUser> dataFileWriter = new DataFileWriter<>(userDatumWriter);
         dataFileWriter.create(schema, new File("users.avro"));
         dataFileWriter.append(user);
         dataFileWriter.flush();
         dataFileWriter.close();
+        System.out.println("done\n");
     }
 }

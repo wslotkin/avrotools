@@ -2,10 +2,9 @@ package avrotools;
 
 import java.io.IOException;
 
-public class FullAvroSerializationMain {
-
+public class FullJsonSerializationMain {
     public static void main(String[] args) throws IOException {
-        AvroDataWriter.main(args);
-        AvroDataReader.main(args);
+        JsonDataWriter.main(args);
+        JsonDataReader.main(args);
     }
 }

@@ -1,5 +1,6 @@
 package avrotools;
 
+import avrotools.external.ExternalDatamodel;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
@@ -15,5 +16,9 @@ public class JsonDataReader {
         Object myDeserializedData = objectMapper.readerFor(User.class).readValue(new File("userdata.json"));
 
         System.out.println(myDeserializedData);
+
+        Object myDeserializedData2 = objectMapper.readerFor(ExternalDatamodel.class).readValue(new File("externaldata.json"));
+
+        System.out.println(myDeserializedData2);
     }
 }

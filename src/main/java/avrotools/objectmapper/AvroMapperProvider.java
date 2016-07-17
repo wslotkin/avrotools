@@ -10,6 +10,7 @@ public class AvroMapperProvider {
 
         objectMapper.registerModule(new EntrySetMapModule());
         objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+        objectMapper.setPropertyNamingStrategy(new PrefixPropertyNamingStrategy());
 
         return objectMapper;
     }

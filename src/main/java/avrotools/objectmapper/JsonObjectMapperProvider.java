@@ -7,6 +7,7 @@ public class JsonObjectMapperProvider {
         ObjectMapper objectMapper = new ObjectMapper();
 
         objectMapper.registerModule(new EntrySetMapModule());
+        objectMapper.setPropertyNamingStrategy(new PrefixPropertyNamingStrategy());
 
         return objectMapper;
     }

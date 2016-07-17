@@ -12,4 +12,8 @@ public interface BaseUser {
     Map<Integer, String> getProperties();
 
     Map<Integer, Map<Double, String>> getNestedProperties();
+
+    Map<String, Integer> getStringMap();
+
+    Map<Integer, Map<String, Double>> getNestedStringMap();
 }

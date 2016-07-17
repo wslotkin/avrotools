@@ -15,7 +15,9 @@ import static avrotools.objectmapper.EntrySetMapDeserializer.mapDeserializer;
 class MapDeserializerModifier extends BeanDeserializerModifier {
     @Override
     public JsonDeserializer<?> modifyMapDeserializer(DeserializationConfig config, MapType type, BeanDescription beanDesc, JsonDeserializer<?> deserializer) {
-        return mapDeserializer(type, config.getTypeFactory());
+        return type.getKeyType().isTypeOrSubTypeOf(String.class)
+                ? deserializer
+                : mapDeserializer(type, config.getTypeFactory());
     }
 
     @Override

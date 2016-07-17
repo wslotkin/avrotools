@@ -10,4 +10,6 @@ public interface BaseUser {
     double getAge();
 
     Map<Integer, String> getProperties();
+
+    Map<Integer, Map<Double, String>> getNestedProperties();
 }

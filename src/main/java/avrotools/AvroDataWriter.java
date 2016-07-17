@@ -9,16 +9,12 @@ import org.apache.avro.reflect.ReflectDatumWriter;
 import java.io.File;
 import java.io.IOException;
 
+import static avrotools.OldUser.defaultUser;
+
 public class AvroDataWriter {
 
     public static void main(String[] args) throws IOException {
-        ImmutableOldUser persistedUser = avrotools.ImmutableOldUser.builder().username("myUsername")
-                .password("myPassword")
-                .age(22.0)
-                .putProperties(1, "myFirstProperty")
-                .build();
-
-        writeToAvro(persistedUser);
+        writeToAvro(defaultUser());
     }
 
     private static void writeToAvro(ImmutableOldUser user) throws IOException {

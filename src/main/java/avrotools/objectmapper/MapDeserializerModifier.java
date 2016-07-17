@@ -23,7 +23,7 @@ class MapDeserializerModifier extends BeanDeserializerModifier {
         JavaType type = beanDesc.getType();
         if (type.isTypeOrSubTypeOf(Map.Entry.class)) {
             List<JavaType> typeParameters = type.getBindings().getTypeParameters();
-            return new EntryDeserializer<>(typeParameters.get(0).getRawClass(), typeParameters.get(1).getRawClass());
+            return new EntryDeserializer(typeParameters.get(0), typeParameters.get(1));
         } else {
             return super.modifyDeserializer(config, beanDesc, deserializer);
         }
